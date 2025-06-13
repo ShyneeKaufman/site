@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Адаптивный сайт</title>
-    <!-- Подключение Montserrat Bold -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+    <title>КЗ “Центр Надання Соціальних Послуг” Таращанської Міської Ради</title>
+    <!-- TT Firs Neue CDN (Google Fonts substitute, closest: 'Montserrat', fallback Arial) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'TT Firs Neue';
+            src: local('TT Firs Neue'), url('https://fonts.cdnfonts.com/s/17508/TTFirsNeue-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Montserrat', Arial, sans-serif;
+            font-family: 'Montserrat', 'TT Firs Neue', Arial, sans-serif;
             font-weight: 700;
             background: #f9f9f9;
             min-height: 100vh;
@@ -17,52 +23,79 @@
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background: #22446D;
+            background: #FF8B00;
             color: #fff;
-            padding: 14px 24px 14px 72px; /* отступ для лого */
+            padding: 18px 24px 18px 80px;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.09);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
             display: flex;
             align-items: center;
-            min-height: 56px;
+            min-height: 72px;
         }
         .header-logo {
             position: absolute;
-            left: 14px;
-            top: 6px;
+            left: 18px;
+            top: 14px;
             width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
         }
         .header-title {
-            margin-left: 0; font-size: 1.25em;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.25em;
+            letter-spacing: 0.01em;
+            line-height: 1.25;
+            color: #fff;
+            margin-left: 0;
+            text-shadow: 0 2px 12px rgba(34,68,109,0.10);
+            max-width: 950px;
+        }
+        .header-title .org {
+            font-size: 1.15em;
+            font-weight: 700;
+            display: block;
+        }
+        .header-title .dep {
+            font-size: 1em;
+            font-weight: 400;
+            opacity: 0.95;
+            display: block;
         }
         .container {
-            max-width: 820px;
+            max-width: 830px;
             margin: 0 auto;
-            padding: 80px 16px 16px 16px; /* отступ сверху для шапки */
+            padding: 110px 16px 24px 16px;
+        }
+        .platform-block {
+            background: rgba(34,68,109,0.85);
+            border-radius: 18px;
+            padding: 34px 28px 34px 28px;
+            margin-bottom: 36px;
+            box-shadow: 0 2px 24px rgba(34,68,109,0.11);
         }
         .info-blocks {
             display: flex;
             gap: 32px;
-            margin-bottom: 48px;
             flex-wrap: wrap;
         }
         .info-block {
             flex: 1 1 340px;
-            background: #fff;
-            padding: 28px 24px;
-            border-radius: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            font-size: 1.08em;
+            background: transparent;
+            color: #fff;
+            padding: 0 0 0 0;
+            border-radius: 0;
+            box-shadow: none;
+            font-size: 1.12em;
             min-width: 265px;
         }
         .info-block h4 {
             margin-bottom: 12px;
-            color: #22446D;
-            font-size: 1.09em;
+            color: #FF8B00;
+            font-size: 1.14em;
             font-weight: 700;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
         }
         .info-block ul {
             margin-left: 1em;
@@ -76,7 +109,7 @@
             position: fixed;
             right: 24px;
             bottom: 24px;
-            background: #22446D;
+            background: #FF8B00;
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -89,12 +122,13 @@
             justify-content: center;
             transition: background 0.2s;
         }
-        .scroll-btn:hover { background: #1c3756; }
+        .scroll-btn:hover { background: #cc7000; }
         form {
-            background: #fff;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            background: rgba(34,68,109,0.85);
+            color: #fff;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(34,68,109,0.08);
             display: flex;
             flex-direction: column;
             gap: 18px;
@@ -102,32 +136,39 @@
         label {
             font-size: 16px;
             margin-bottom: 6px;
+            color: #FF8B00;
         }
         input, select {
             padding: 9px 12px;
-            border: 1px solid #bbb;
-            border-radius: 5px;
+            border: 1.5px solid #bbb;
+            border-radius: 6px;
             font-size: 16px;
             width: 100%;
+            background: #f7f7f8;
+            color: #223b53;
         }
         input:required:invalid, select:required:invalid {
             border-color: #e25c5c;
         }
         button[type="submit"] {
-            background: #22446D;
+            background: #FF8B00;
             color: #fff;
             border: none;
             padding: 12px;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 17px;
             cursor: pointer;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
             transition: background 0.2s;
+            margin-top: 8px;
+            letter-spacing: 0.03em;
         }
         button[type="submit"]:hover {
-            background: #1c3756;
+            background: #cc7000;
         }
         .success-message {
-            color: #198754;
+            color: #00e094;
             font-size: 1.1em;
             margin-top: 16px;
             margin-bottom: 0;
@@ -135,14 +176,16 @@
             font-weight: 700;
         }
         @media (max-width: 900px) {
-            .container { padding-top: 70px; }
+            .container { padding-top: 90px; }
             .info-blocks { flex-direction: column; gap: 20px; }
             .header-logo { width: 36px; height: 36px; }
             header { padding-left: 54px; }
         }
         @media (max-width: 600px) {
-            .container { padding: 60px 6px 10px 6px; }
-            form { padding: 14px; }
+            .container { padding: 65px 6px 10px 6px; }
+            .platform-block { padding: 17px 7px 22px 7px; }
+            form { padding: 12px; }
+            .header-title { font-size: 0.99em; }
         }
     </style>
 </head>
@@ -150,83 +193,89 @@
 
 <header>
     <div class="header-logo">
-        <!-- SVG логотип с насыщенными цветами -->
+        <!-- SVG логотип -->
         <svg width="44" height="44" viewBox="0 0 375 371" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="185" cy="185" r="185" fill="#fff" fill-opacity="0.08"/>
             <path d="M280.411 370.975H95.2593V320.662H142.889L152.281 284.437H224.061L234.794 320.662H280.411V370.975Z" fill="#FF8B00"/>
             <path d="M95.2593 -5.2478e-05L280.411 -6.86646e-05L280.411 50.313L232.782 50.313L223.39 86.5383L151.61 86.5383L140.876 50.313L95.2593 50.313L95.2593 -5.2478e-05Z" fill="#FF8B00"/>
             <path d="M-4.62402e-05 277.728L-3.8147e-05 92.576L50.313 92.576L50.313 140.206L86.5384 149.598L86.5384 221.377L50.313 232.111L50.313 277.728L-4.62402e-05 277.728Z" fill="#FF8B00"/>
             <path d="M375 92.5761L375 277.728L324.687 277.728L324.687 230.098L288.462 220.707L288.462 148.927L324.687 138.193L324.687 92.5761L375 92.5761Z" fill="#FF8B00"/>
             <path d="M230.769 259.615H142.218L114.043 231.44V140.876L142.218 111.359H230.769L260.286 140.876V231.44L230.769 259.615Z" fill="white"/>
-            <path d="M165.698 163.014L145.573 142.889V228.086H177.102L186.494 239.49L196.556 228.086H227.415V142.889L206.619 163.014V205.948H196.556V142.889L186.494 133.497L175.76 144.901V205.948H165.[...]
         </svg>
     </div>
-    <div class="header-title">Мой адаптивный сайт</div>
+    <div class="header-title">
+        <span class="org">КЗ “Центр Надання Соціальних Послуг” Таращанської Міської Ради</span>
+        <span class="dep">Відділення “Ветеранський простір”</span>
+    </div>
 </header>
 <div class="container">
 
-    <div class="info-blocks">
-        <div class="info-block">
-            <h4>Категорії осіб, яким надається підтримка</h4>
-            <ul id="category-list">
-                <li>Ветерани війни</li>
-                <li>Демобілізовані особи</li>
-                <li>Члени сімей загиблих(померлих) ветеранів війни</li>
-                <li>Члени сімей загиблих(померлих) Захисників та Захисниць України</li>
-                <li>Постраждалі учасники революції гідності та члени їх сімей</li>
-                <li>Особи, які мають особливі заслуги перед батьківщиною</li>
-            </ul>
-        </div>
-        <div class="info-block">
-            <h4>Послуги, які надаються</h4>
-            <ul id="services-list">
-                <li>Організацію індивідуального супроводу та консультування ветеранів війни та членів їх сімей</li>
-                <li>Консультаційну підтримку ветеранів війни та їх родин щодо отримання соціальних, освітніх, реабілітаційних та інших послуг</li>
-                <li>Підтримку в оформленні документів</li>
-                <li>Допомогу в організації отримання медичних послуг та реабілітації</li>
-                <li>Співпрацю з громадськими об'єднаннями ветеранів війни тощо</li>
-            </ul>
+    <div class="platform-block">
+        <div class="info-blocks">
+            <div class="info-block">
+                <h4>Категорії осіб, яким надається підтримка</h4>
+                <ul id="category-list">
+                    <li>Ветерани війни</li>
+                    <li>Демобілізовані особи</li>
+                    <li>Члени сімей загиблих (померлих) ветеранів війни</li>
+                    <li>Члени сімей загиблих (померлих) Захисників та Захисниць України</li>
+                    <li>Постраждалі учасники Революції Гідності та члени їх сімей</li>
+                    <li>Особи, які мають особливі заслуги перед Батьківщиною</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <h4>Послуги, які надаються</h4>
+                <ul id="services-list">
+                    <li>Індивідуальний супровід та консультування ветеранів війни та членів їх сімей</li>
+                    <li>Консультаційна підтримка щодо отримання соціальних, освітніх, реабілітаційних та інших послуг</li>
+                    <li>Підтримка в оформленні документів</li>
+                    <li>Допомога в організації отримання медичних послуг та реабілітації</li>
+                    <li>Співпраця з громадськими об'єднаннями ветеранів війни тощо</li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <h3>Добро пожаловать!</h3>
-    <p style="margin-bottom: 60px;">
-        Пример минимального адаптивного сайта с фиксированной шапкой и формой.
-    </p>
-
-    <form id="main-form" autocomplete="off">
-        <div>
-            <label for="name">Имя <span style="color:#e25c5c">*</span></label>
-            <input type="text" id="name" name="name" required autocomplete="off">
-        </div>
-        <div>
-            <label for="phone">Телефон <span style="color:#e25c5c">*</span></label>
-            <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,15}$" placeholder="+380XXXXXXXXX">
-        </div>
-        <div>
-            <label for="option1">Категория лица</label>
-            <select id="option1" name="option1" required>
-                <option value="" disabled selected>Выберите категорию</option>
-            </select>
-        </div>
-        <div>
-            <label for="option2">Услуга</label>
-            <select id="option2" name="option2" required>
-                <option value="" disabled selected>Выберите услугу</option>
-            </select>
-        </div>
-        <button type="submit">Отправить</button>
-        <div id="success-message" class="success-message" style="display:none"></div>
-    </form>
+    <div class="platform-block">
+        <h3 style="color:#FF8B00; font-family:'TT Firs Neue', 'Montserrat', Arial,sans-serif; margin-bottom:18px; font-size:1.22em;">Ласкаво просимо!</h3>
+        <p style="margin-bottom: 36px; color:#fff;">
+            Мінімальний адаптивний сайт з фіксованою шапкою та формою для звернення.
+        </p>
+        <form id="main-form" autocomplete="off">
+            <div>
+                <label for="name">Ім'я <span style="color:#e25c5c">*</span></label>
+                <input type="text" id="name" name="name" required autocomplete="off">
+            </div>
+            <div>
+                <label for="phone">Телефон <span style="color:#e25c5c">*</span></label>
+                <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,15}$" placeholder="+380XXXXXXXXX">
+            </div>
+            <div>
+                <label for="option1">Категорія особи</label>
+                <select id="option1" name="option1" required>
+                    <option value="" disabled selected>Оберіть категорію</option>
+                </select>
+            </div>
+            <div>
+                <label for="option2">Послуга</label>
+                <select id="option2" name="option2" required>
+                    <option value="" disabled selected>Оберіть послугу</option>
+                </select>
+            </div>
+            <button type="submit">Відправити</button>
+            <div id="success-message" class="success-message" style="display:none"></div>
+        </form>
+    </div>
 </div>
-<!-- Кнопка для прокрутки к форме -->
-<button class="scroll-btn" onclick="scrollToForm()" title="К форме">&#8595;</button>
+<!-- Кнопка для прокрутки до форми -->
+<button class="scroll-btn" onclick="scrollToForm()" title="До форми">&#8595;</button>
 
 <script>
 function scrollToForm() {
     document.getElementById('main-form').scrollIntoView({behavior: 'smooth'});
 }
 
-// Заполнение select-ов из текстовых блоков
+// Заповнення select-ів з текстових блоків
 function fillSelectFromList(selectId, listId) {
     const select = document.getElementById(selectId);
     const list = document.getElementById(listId);
@@ -242,11 +291,11 @@ function fillSelectFromList(selectId, listId) {
 fillSelectFromList('option1', 'category-list');
 fillSelectFromList('option2', 'services-list');
 
-// Сохранение заявки в localStorage
+// Збереження заявки у localStorage
 document.getElementById('main-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Получаем значения
+    // Отримання значень
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const option1Select = document.getElementById('option1');
@@ -254,17 +303,17 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     const option1 = option1Select.options[option1Select.selectedIndex].text;
     const option2 = option2Select.options[option2Select.selectedIndex].text;
 
-    // Валидация телефона
+    // Валідація телефону
     const phonePattern = /^\+?\d{10,15}$/;
+    const msg = document.getElementById('success-message');
     if (!phonePattern.test(phone)) {
-        const msg = document.getElementById('success-message');
-        msg.textContent = "Пожалуйста, введите корректный номер телефона!";
+        msg.textContent = "Будь ласка, введіть коректний номер телефону!";
         msg.style.color = "#e25c5c";
         msg.style.display = "block";
         return;
     }
 
-    // Формируем новую заявку
+    // Формуємо нову заявку
     const newApp = {
         name: name,
         phone: phone,
@@ -272,31 +321,29 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
         option2: option2
     };
 
-    // Загружаем предыдущие заявки
+    // Завантажуємо попередні заявки
     let apps = [];
     try {
         apps = JSON.parse(localStorage.getItem('applications') || '[]');
     } catch { apps = []; }
 
-    // Добавляем новую заявку
+    // Додаємо нову заявку
     apps.push(newApp);
 
-    // Сохраняем обратно
+    // Зберігаємо назад
     localStorage.setItem('applications', JSON.stringify(apps));
 
-    // Сообщение об успехе
-    const msg = document.getElementById('success-message');
-    msg.textContent = "Заявка успешно отправлена!";
-    msg.style.color = "#198754";
+    // Повідомлення про успіх
+    msg.textContent = "Заявку успішно надіслано!";
+    msg.style.color = "#00e094";
     msg.style.display = "block";
 
-    // Очищаем форму
+    // Очищаємо форму
     this.reset();
-    // Возвращаем плейсхолдеры у select
     option1Select.selectedIndex = 0;
     option2Select.selectedIndex = 0;
 
-    // Прячем сообщение через 2.5 секунды
+    // Приховуємо повідомлення через 2.5 секунди
     setTimeout(() => { msg.style.display = "none"; }, 2500);
 });
 </script>
