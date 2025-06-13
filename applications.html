@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поданные заявки</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+    <title>Подані заявки</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'TT Firs Neue';
+            src: local('TT Firs Neue'), url('https://fonts.cdnfonts.com/s/17508/TTFirsNeue-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Montserrat', Arial, sans-serif;
+            font-family: 'Montserrat', 'TT Firs Neue', Arial, sans-serif;
             font-weight: 700;
             background: #f9f9f9;
             min-height: 100vh;
@@ -16,44 +22,72 @@
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background: #22446D;
+            background: #FF8B00;
             color: #fff;
-            padding: 14px 24px 14px 72px;
+            padding: 18px 24px 18px 80px;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.09);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
             display: flex;
             align-items: center;
-            min-height: 56px;
+            min-height: 72px;
         }
         .header-logo {
             position: absolute;
-            left: 14px;
-            top: 6px;
+            left: 18px;
+            top: 14px;
             width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
         }
         .header-title {
-            margin-left: 0; font-size: 1.25em;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.25em;
+            letter-spacing: 0.01em;
+            line-height: 1.25;
+            color: #fff;
+            margin-left: 0;
+            text-shadow: 0 2px 12px rgba(34,68,109,0.10);
+            max-width: 950px;
+        }
+        .header-title .org {
+            font-size: 1.15em;
+            font-weight: 700;
+            display: block;
+        }
+        .header-title .dep {
+            font-size: 1em;
+            font-weight: 400;
+            opacity: 0.95;
+            display: block;
         }
         .container {
-            max-width: 860px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 80px 16px 16px 16px;
+            padding: 110px 16px 20px 16px;
+        }
+        .platform-block {
+            background: rgba(34,68,109,0.85);
+            border-radius: 18px;
+            padding: 34px 28px 34px 28px;
+            margin-bottom: 36px;
+            box-shadow: 0 2px 24px rgba(34,68,109,0.11);
         }
         h2 {
             margin-bottom: 22px;
-            color: #22446D;
-            font-size: 1.35em;
+            color: #FF8B00;
+            font-size: 1.25em;
+            font-family:'TT Firs Neue', 'Montserrat', Arial,sans-serif;
         }
         table {
             width: 100%;
-            background: #fff;
+            background: rgba(255,255,255,0.91);
             border-radius: 14px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border-collapse: collapse;
-            margin-bottom: 44px;
+            margin-bottom: 24px;
+            overflow: hidden;
         }
         th, td {
             font-weight: 700;
@@ -72,58 +106,82 @@
             color: #2d2d2d;
             font-weight: 400;
             font-size: 0.98em;
+            background: rgba(255,255,255,0.76);
         }
         .empty {
             text-align: center;
             color: #aaa;
             padding: 32px 0;
         }
+        .delete-btn {
+            background: #FF8B00;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 7px 12px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.16s;
+        }
+        .delete-btn:hover {
+            background: #cc7000;
+        }
         @media (max-width: 900px) {
-            .container { padding-top: 70px; }
+            .container { padding-top: 90px; }
             .header-logo { width: 36px; height: 36px; }
             header { padding-left: 54px; }
         }
         @media (max-width: 600px) {
-            .container { padding: 60px 6px 10px 6px; }
+            .container { padding: 65px 6px 10px 6px; }
             th, td { padding: 10px 4px; font-size: 0.92em; }
+            .header-title { font-size: 0.99em; }
+            .platform-block { padding: 17px 7px 22px 7px; }
         }
     </style>
 </head>
 <body>
 <header>
     <div class="header-logo">
-        <!-- SVG логотип, как на главной -->
+        <!-- SVG логотип -->
         <svg width="44" height="44" viewBox="0 0 375 371" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="185" cy="185" r="185" fill="#fff" fill-opacity="0.08"/>
             <path d="M280.411 370.975H95.2593V320.662H142.889L152.281 284.437H224.061L234.794 320.662H280.411V370.975Z" fill="#FF8B00"/>
             <path d="M95.2593 -5.2478e-05L280.411 -6.86646e-05L280.411 50.313L232.782 50.313L223.39 86.5383L151.61 86.5383L140.876 50.313L95.2593 50.313L95.2593 -5.2478e-05Z" fill="#FF8B00"/>
             <path d="M-4.62402e-05 277.728L-3.8147e-05 92.576L50.313 92.576L50.313 140.206L86.5384 149.598L86.5384 221.377L50.313 232.111L50.313 277.728L-4.62402e-05 277.728Z" fill="#FF8B00"/>
             <path d="M375 92.5761L375 277.728L324.687 277.728L324.687 230.098L288.462 220.707L288.462 148.927L324.687 138.193L324.687 92.5761L375 92.5761Z" fill="#FF8B00"/>
             <path d="M230.769 259.615H142.218L114.043 231.44V140.876L142.218 111.359H230.769L260.286 140.876V231.44L230.769 259.615Z" fill="white"/>
-            <path d="M165.698 163.014L145.573 142.889V228.086H177.102L186.494 239.49L196.556 228.086H227.415V142.889L206.619 163.014V205.948H196.556V142.889L186.494 133.497L175.76 144.901V205.948H165.[...]
         </svg>
     </div>
-    <div class="header-title">Поданные заявки</div>
+    <div class="header-title">
+        <span class="org">КЗ “Центр Надання Соціальних Послуг” Таращанської Міської Ради</span>
+        <span class="dep">Відділення “Ветеранський простір”</span>
+    </div>
 </header>
 <div class="container">
-    <h2>Список поданных форм</h2>
-    <table id="applications-table">
-        <thead>
-            <tr>
-                <th>Имя</th>
-                <th>Телефон</th>
-                <th>Категория лица</th>
-                <th>Услуга</th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-            <tr class="empty">
-                <td colspan="4">Нет поданных заявок</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="platform-block">
+        <h2>Список поданих заявок</h2>
+        <table id="applications-table">
+            <thead>
+                <tr>
+                    <th>Ім'я</th>
+                    <th>Телефон</th>
+                    <th>Категорія особи</th>
+                    <th>Послуга</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr class="empty">
+                    <td colspan="5">Немає поданих заявок</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="delete-btn" id="clear-all-btn" style="margin-top:12px;">Видалити всі заявки</button>
+    </div>
 </div>
 <script>
-// Получение заявок из localStorage и отображение их в таблице
+// Отримання заявок з localStorage та відображення їх у таблиці
 function loadApplications() {
     const tableBody = document.getElementById('table-body');
     let apps = [];
@@ -132,22 +190,42 @@ function loadApplications() {
     } catch { apps = []; }
     tableBody.innerHTML = '';
     if (apps.length === 0) {
-        tableBody.innerHTML = `<tr class="empty"><td colspan="4">Нет поданных заявок</td></tr>`;
+        tableBody.innerHTML = `<tr class="empty"><td colspan="5">Немає поданих заявок</td></tr>`;
         return;
     }
-    apps.forEach(app => {
+    apps.forEach((app, idx) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${escapeHTML(app.name)}</td>
             <td>${escapeHTML(app.phone || "")}</td>
             <td>${escapeHTML(app.option1)}</td>
             <td>${escapeHTML(app.option2)}</td>
+            <td><button class="delete-btn" onclick="deleteApplication(${idx})">Видалити</button></td>
         `;
         tableBody.appendChild(row);
     });
 }
 
-// Простая функция экранирования текста
+// Функція видалення однієї заявки
+function deleteApplication(idx) {
+    let apps = [];
+    try {
+        apps = JSON.parse(localStorage.getItem('applications') || '[]');
+    } catch { apps = []; }
+    apps.splice(idx, 1);
+    localStorage.setItem('applications', JSON.stringify(apps));
+    loadApplications();
+}
+
+// Видалити всі заявки
+document.getElementById('clear-all-btn').onclick = function() {
+    if (confirm('Ви дійсно бажаєте видалити всі заявки?')) {
+        localStorage.removeItem('applications');
+        loadApplications();
+    }
+};
+
+// Функція екранування тексту
 function escapeHTML(str) {
     if (!str) return '';
     return String(str).replace(/[<>&"']/g, function(m) {
@@ -157,7 +235,7 @@ function escapeHTML(str) {
     });
 }
 
-// Загрузка при открытии страницы
+// Завантаження при відкритті сторінки
 window.addEventListener('DOMContentLoaded', loadApplications);
 </script>
 </body>
