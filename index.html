@@ -351,10 +351,8 @@
 </div>
 <!-- Кнопка для прокрутки до форми -->
 <button class="scroll-btn" onclick="scrollToForm()" title="До форми">&#8595;</button>
-
+<audio id="success-audio" src="assets/success.mp3" preload="auto"></audio>
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOalLR-CfbV0DycK8w7P2r6kih_wK-_AoTI6EeRvXYFw5e2kbS-suHzZHlVKyneu7EoQ/exec";
-
 function scrollToForm() {
     document.getElementById('main-form').scrollIntoView({behavior: 'smooth'});
 }
@@ -375,7 +373,7 @@ function fillSelectFromList(selectId, listId) {
 fillSelectFromList('option1', 'category-list');
 fillSelectFromList('option2', 'services-list');
 
-// Збереження заявки у Google Таблицю
+// Відправка заявки через Getform
 document.getElementById('main-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
@@ -386,29 +384,42 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     const option2 = option2Select.options[option2Select.selectedIndex].text;
     const phonePattern = /^\+?\d{10,15}$/;
     const msg = document.getElementById('success-message');
+    const audio = document.getElementById('success-audio');
     if (!phonePattern.test(phone)) {
         msg.textContent = "Будь ласка, введіть коректний номер телефону!";
         msg.style.color = "#e25c5c";
         msg.style.display = "block";
         return;
     }
-    fetch(GOOGLE_SCRIPT_URL, {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('phone', phone);
+    formData.append('option1', option1);
+    formData.append('option2', option2);
+    fetch('https://getform.io/f/anlxkgea', {
         method: 'POST',
-        body: JSON.stringify({name, phone, option1, option2}),
-        headers: { 'Content-Type': 'application/json' }
+        body: formData,
+        headers: { 'Accept': 'application/json' }
     })
-    .then(res => res.json())
-    .then(data => {
-        msg.textContent = "Заявку успішно надіслано!";
-        msg.style.color = "#00e094";
-        msg.style.display = "block";
-        // Очищаем форму
-        document.getElementById('main-form').reset();
-        option1Select.selectedIndex = 0;
-        option2Select.selectedIndex = 0;
-        setTimeout(() => { msg.style.display = "none"; }, 2500);
-    }).catch(() => {
-        msg.textContent = "Виникла помилка при надсиланні. Спробуйте ще раз.";
+    .then(response => {
+        if (response.ok) {
+            msg.textContent = "Заявка успішно відправлена!";
+            msg.style.color = "#00e094";
+            msg.style.display = "block";
+            audio.currentTime = 0;
+            audio.play();
+            document.getElementById('main-form').reset();
+            option1Select.selectedIndex = 0;
+            option2Select.selectedIndex = 0;
+            setTimeout(() => { msg.style.display = "none"; }, 2500);
+        } else {
+            msg.textContent = "Сталася помилка при відправці. Спробуйте ще раз.";
+            msg.style.color = "#e25c5c";
+            msg.style.display = "block";
+        }
+    })
+    .catch(() => {
+        msg.textContent = "Сталася помилка мережі. Спробуйте ще раз.";
         msg.style.color = "#e25c5c";
         msg.style.display = "block";
     });
