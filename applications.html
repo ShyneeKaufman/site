@@ -110,9 +110,9 @@
         <thead>
             <tr>
                 <th>Имя</th>
-                <th>Email</th>
-                <th>Вариант 1</th>
-                <th>Вариант 2</th>
+                <th>Телефон</th>
+                <th>Категория лица</th>
+                <th>Услуга</th>
             </tr>
         </thead>
         <tbody id="table-body">
@@ -139,7 +139,7 @@ function loadApplications() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${escapeHTML(app.name)}</td>
-            <td>${escapeHTML(app.email)}</td>
+            <td>${escapeHTML(app.phone || "")}</td>
             <td>${escapeHTML(app.option1)}</td>
             <td>${escapeHTML(app.option2)}</td>
         `;
