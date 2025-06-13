@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Адаптивный сайт</title>
+    <!-- Подключение Montserrat Bold -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
     <style>
-        /* Сброс */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f9f9f9; min-height: 100vh; }
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            background: #f9f9f9;
+            min-height: 100vh;
+        }
 
         /* Шапка */
         header {
@@ -15,14 +21,59 @@
             top: 0; left: 0; width: 100%;
             background: #222;
             color: #fff;
-            padding: 18px 24px;
+            padding: 18px 24px 18px 120px; /* отступ для лого */
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.09);
+            display: flex;
+            align-items: center;
         }
+        .header-logo {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+        }
+        .header-title {
+            margin-left: 0; font-size: 1.5em;
+        }
+
         .container {
-            max-width: 640px;
+            max-width: 820px;
             margin: 0 auto;
-            padding: 90px 16px 16px 16px; /* отступ сверху для шапки */
+            padding: 110px 16px 16px 16px; /* больше отступ сверху для лого и шапки */
+        }
+
+        .info-blocks {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+        .info-block {
+            flex: 1 1 340px;
+            background: #fff;
+            padding: 28px 24px;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-size: 1.08em;
+            min-width: 265px;
+        }
+        .info-block h4 {
+            margin-bottom: 12px;
+            color: #22446D;
+            font-size: 1.09em;
+            font-weight: 700;
+        }
+        .info-block ul {
+            margin-left: 1em;
+            margin-bottom: 0;
+        }
+        .info-block ul li {
+            margin-bottom: 6px;
+            line-height: 1.6;
         }
 
         /* Кнопка прокрутки */
@@ -83,6 +134,12 @@
             background: #444;
         }
 
+        @media (max-width: 900px) {
+            .container { padding-top: 100px; }
+            .info-blocks { flex-direction: column; gap: 20px; }
+            .header-logo { width: 55px; height: 55px; }
+            header { padding-left: 80px; }
+        }
         @media (max-width: 600px) {
             .container { padding: 80px 6px 10px 6px; }
             form { padding: 14px; }
@@ -92,9 +149,45 @@
 <body>
 
 <header>
-    <h2>Мой адаптивный сайт</h2>
+    <div class="header-logo">
+        <!-- SVG логотип -->
+        <svg width="75" height="75" viewBox="0 0 375 371" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M280.411 370.975H95.2593V320.662H142.889L152.281 284.437H224.061L234.794 320.662H280.411V370.975Z" fill="#FF8B00" fill-opacity="0.3"/>
+            <path d="M95.2593 -5.2478e-05L280.411 -6.86646e-05L280.411 50.313L232.782 50.313L223.39 86.5383L151.61 86.5383L140.876 50.313L95.2593 50.313L95.2593 -5.2478e-05Z" fill="#FF8B00" fill-opacity="0.3"/>
+            <path d="M-4.62402e-05 277.728L-3.8147e-05 92.576L50.313 92.576L50.313 140.206L86.5384 149.598L86.5384 221.377L50.313 232.111L50.313 277.728L-4.62402e-05 277.728Z" fill="#FF8B00" fill-opacity="0.3"/>
+            <path d="M375 92.5761L375 277.728L324.687 277.728L324.687 230.098L288.462 220.707L288.462 148.927L324.687 138.193L324.687 92.5761L375 92.5761Z" fill="#FF8B00" fill-opacity="0.3"/>
+            <path d="M230.769 259.615H142.218L114.043 231.44V140.876L142.218 111.359H230.769L260.286 140.876V231.44L230.769 259.615Z" fill="white" fill-opacity="0.3"/>
+            <path d="M165.698 163.014L145.573 142.889V228.086H177.102L186.494 239.49L196.556 228.086H227.415V142.889L206.619 163.014V205.948H196.556V142.889L186.494 133.497L175.76 144.901V205.948H165.698V163.014Z" fill="#22446D" fill-opacity="0.3"/>
+        </svg>
+    </div>
+    <div class="header-title">Мой адаптивный сайт</div>
 </header>
 <div class="container">
+
+    <div class="info-blocks">
+        <div class="info-block">
+            <h4>Категорії осіб, яким надається підтримка</h4>
+            <ul>
+                <li>Ветерани війни</li>
+                <li>Демобілізовані особи</li>
+                <li>Члени сімей загиблих(померлих) ветеранів війни</li>
+                <li>Члени сімей загиблих(померлих) Захисників та Захисниць України</li>
+                <li>Постраждалі учасники революції гідності та члени їх сімей</li>
+                <li>Особи, які мають особливі заслуги перед батьківщиною</li>
+            </ul>
+        </div>
+        <div class="info-block">
+            <h4>Послуги, які надаються</h4>
+            <ul>
+                <li>Організацію індивідуального супроводу та консультування ветеранів війни та членів їх сімей</li>
+                <li>Консультаційну підтримку ветеранів війни та їх родин щодо отримання соціальних, освітніх, реабілітаційних та психологічних послуг</li>
+                <li>Підтримку в оформленні документів</li>
+                <li>Допомогу в організації отримання медичних послуг та реабілітації</li>
+                <li>Співпрацю з громадськими об'єднаннями ветеранів війни тощо</li>
+            </ul>
+        </div>
+    </div>
+
     <h3>Добро пожаловать!</h3>
     <p style="margin-bottom: 60px;">
         Пример минимального адаптивного сайта с фиксированной шапкой и формой.
