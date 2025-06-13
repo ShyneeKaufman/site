@@ -48,6 +48,23 @@
     let previousApplicationsCount = 0;
     let applicationsIds = [];
 
+    // Запросить разрешение на уведомления при загрузке страницы
+    function requestNotificationPermission() {
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission();
+      }
+    }
+
+    // Показать уведомление о новой заявке
+    function notifyNewApplication(app) {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Нова заявка!', {
+          body: `Ім'я: ${app.name || ''}\nТелефон: ${app.phone || ''}`,
+          icon: 'favicon.ico'
+        });
+      }
+    }
+
     function renderTable(applications) {
       let html = `<table>
         <thead>
@@ -79,15 +96,17 @@
       document.getElementById('applications-table').innerHTML = html;
     }
 
-    // Звуковое уведомление при появлении новых заявок
+    // Проверка и обработка новых заявок (звук + уведомление)
     function checkNewApplications(applications) {
       if (Array.isArray(applications)) {
         const idsNow = applications.map(app => app.id);
-        // Звук только если появилось новое id (заявка)
         if (applicationsIds.length > 0 && idsNow.length > applicationsIds.length) {
-          const newApps = idsNow.filter(id => !applicationsIds.includes(id));
+          const newApps = applications.filter(app => !applicationsIds.includes(app.id));
           if (newApps.length > 0) {
+            // Звуковое уведомление
             document.getElementById('new-app-audio').play().catch(()=>{});
+            // Push-уведомления
+            newApps.forEach(app => notifyNewApplication(app));
           }
         }
         applicationsIds = idsNow;
@@ -130,6 +149,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      requestNotificationPermission();
       loadApplications();
       setInterval(loadApplications, 10000);
     });
