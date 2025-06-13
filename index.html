@@ -70,7 +70,7 @@
         .container {
             max-width: 830px;
             margin: 0 auto;
-            padding: 118px 16px 24px 16px; /* увеличен верхний паддинг */
+            padding: 128px 16px 24px 16px;
         }
         .platform-block {
             background: rgba(34,68,109,0.85);
@@ -109,6 +109,40 @@
             margin-bottom: 6px;
             line-height: 1.6;
         }
+        .specialists-block {
+            background: rgba(34,68,109,0.85);
+            border-radius: 18px;
+            padding: 24px 28px 18px 28px;
+            margin-bottom: 36px;
+            color: #fff;
+            box-shadow: 0 2px 24px rgba(34,68,109,0.11);
+        }
+        .specialists-block h4 {
+            color: #FF8B00;
+            margin-bottom: 16px;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-size: 1.13em;
+        }
+        .specialists-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 28px;
+        }
+        .specialist {
+            min-width: 180px;
+            margin-bottom: 6px;
+            font-size: 1.07em;
+        }
+        .specialist .name {
+            color: #fff;
+            font-weight: 700;
+        }
+        .specialist .phone {
+            color: #FF8B00;
+            font-size: 1.05em;
+            margin-right: 7px;
+            font-family: monospace;
+        }
         .scroll-btn {
             position: fixed;
             right: 24px;
@@ -136,6 +170,7 @@
             display: flex;
             flex-direction: column;
             gap: 18px;
+            margin-bottom: 36px;
         }
         label {
             font-size: 16px;
@@ -179,16 +214,30 @@
             text-align: center;
             font-weight: 700;
         }
+        .map-block {
+            background: rgba(34,68,109,0.85);
+            border-radius: 18px;
+            padding: 24px 28px 24px 28px;
+            color: #fff;
+            box-shadow: 0 2px 24px rgba(34,68,109,0.11);
+            margin-bottom: 36px;
+        }
+        .map-block h4 {
+            color: #FF8B00;
+            margin-bottom: 8px;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-size: 1.13em;
+        }
         @media (max-width: 900px) {
-            .container { padding-top: 110px; }
+            .container { padding-top: 120px; }
             .info-blocks { flex-direction: column; gap: 20px; }
             .header-logo { width: 48px; height: 48px; }
             .header-logo svg { width: 48px; height: 48px; }
             header { padding-left: 58px; min-height: 70px;}
         }
         @media (max-width: 600px) {
-            .container { padding: 100px 4px 10px 4px; }
-            .platform-block { padding: 13px 5px 18px 5px; }
+            .container { padding: 155px 4px 10px 4px; }
+            .platform-block, .specialists-block, .map-block { padding: 13px 5px 18px 5px; }
             form { padding: 8px; }
             .header-title { font-size: 0.93em; }
             header { padding: 10px 8px 10px 68px; min-height: 70px;}
@@ -200,7 +249,6 @@
 
 <header>
     <div class="header-logo">
-        <!-- Новый SVG логотип -->
         <svg width="56" height="53" viewBox="0 0 427 403" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M280 403H95.0001V348.93H142.591L151.975 310H223.696L234.42 348.93H280V403Z" fill="#22446D"/>
             <path d="M95.2593 32L280.411 32L280.411 82.313L232.782 82.313L223.39 118.538L151.61 118.538L140.877 82.3131L95.2594 82.3131L95.2593 32Z" fill="#22446D"/>
@@ -217,6 +265,7 @@
 </header>
 <div class="container">
 
+    <!-- 1. Послуги/осіб -->
     <div class="platform-block">
         <div class="info-blocks">
             <div class="info-block">
@@ -243,41 +292,68 @@
         </div>
     </div>
 
-    <div class="platform-block">
-        <h3 style="color:#FF8B00; font-family:'TT Firs Neue', 'Montserrat', Arial,sans-serif; margin-bottom:18px; font-size:1.22em;">Ласкаво просимо!</h3>
-        <p style="margin-bottom: 36px; color:#fff;">
-            Мінімальний адаптивний сайт з фіксованою шапкою та формою для звернення.
-        </p>
-        <form id="main-form" autocomplete="off">
-            <div>
-                <label for="name">Ім'я <span style="color:#e25c5c">*</span></label>
-                <input type="text" id="name" name="name" required autocomplete="off">
-            </div>
-            <div>
-                <label for="phone">Телефон <span style="color:#e25c5c">*</span></label>
-                <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,15}$" placeholder="+380XXXXXXXXX">
-            </div>
-            <div>
-                <label for="option1">Категорія особи</label>
-                <select id="option1" name="option1" required>
-                    <option value="" disabled selected>Оберіть категорію</option>
-                </select>
-            </div>
-            <div>
-                <label for="option2">Послуга</label>
-                <select id="option2" name="option2" required>
-                    <option value="" disabled selected>Оберіть послугу</option>
-                </select>
-            </div>
-            <button type="submit">Відправити</button>
-            <div id="success-message" class="success-message" style="display:none"></div>
-        </form>
+    <!-- 2. Наші спеціалісти -->
+    <div class="specialists-block">
+        <h4>Наші спеціалісти:</h4>
+        <div class="specialists-list">
+            <div class="specialist"><span class="phone">+38 (097) 170 42 86</span> <span class="name">Олександр</span></div>
+            <div class="specialist"><span class="phone">+38 (095) 886 16 23</span> <span class="name">Юлія</span></div>
+            <div class="specialist"><span class="phone">+38 (097) 919 60 42</span> <span class="name">Наталія</span></div>
+            <div class="specialist"><span class="phone">+38 (098) 117 11 83</span> <span class="name">Руслана</span></div>
+            <div class="specialist"><span class="phone">+38 (095) 251 19 04</span> <span class="name">Наталія</span></div>
+            <div class="specialist"><span class="phone">+38 (050) 979 25 29</span> <span class="name">Катерина</span></div>
+        </div>
+    </div>
+
+    <!-- 3. Форма подачі -->
+    <form id="main-form" autocomplete="off">
+        <div>
+            <label for="name">Ім'я <span style="color:#e25c5c">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="off">
+        </div>
+        <div>
+            <label for="phone">Телефон <span style="color:#e25c5c">*</span></label>
+            <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,15}$" placeholder="+380XXXXXXXXX">
+        </div>
+        <div>
+            <label for="option1">Категорія особи</label>
+            <select id="option1" name="option1" required>
+                <option value="" disabled selected>Оберіть категорію</option>
+            </select>
+        </div>
+        <div>
+            <label for="option2">Послуга</label>
+            <select id="option2" name="option2" required>
+                <option value="" disabled selected>Оберіть послугу</option>
+            </select>
+        </div>
+        <button type="submit">Відправити</button>
+        <div id="success-message" class="success-message" style="display:none"></div>
+    </form>
+
+    <!-- 4. Google карта + адрес -->
+    <div class="map-block">
+        <h4>Ми на карті</h4>
+        <div style="width:100%; max-width: 100%; height: 320px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 8px rgba(34,68,109,0.11);">
+            <iframe
+                src="https://www.google.com/maps?ll=49.562111,30.501194&amp;z=17&amp;t=m&amp;output=embed&amp;q=49.562111,30.501194"
+                width="100%"
+                height="320"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+        <div style="margin-top:12px;color:#fff;">Адреса: м. Тараща, вул. Короленка, 9</div>
     </div>
 </div>
 <!-- Кнопка для прокрутки до форми -->
 <button class="scroll-btn" onclick="scrollToForm()" title="До форми">&#8595;</button>
 
 <script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlRqOeu9UXsUBGeNSqedUz1cWFDomhUsvgRUqOomziNtImrHf5arRByNawWwPsWcOddA/exec";
+
 function scrollToForm() {
     document.getElementById('main-form').scrollIntoView({behavior: 'smooth'});
 }
@@ -298,7 +374,7 @@ function fillSelectFromList(selectId, listId) {
 fillSelectFromList('option1', 'category-list');
 fillSelectFromList('option2', 'services-list');
 
-// Збереження заявки у localStorage
+// Збереження заявки у Google Таблицю
 document.getElementById('main-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
@@ -315,20 +391,27 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
         msg.style.display = "block";
         return;
     }
-    const newApp = { name: name, phone: phone, option1: option1, option2: option2 };
-    let apps = [];
-    try { apps = JSON.parse(localStorage.getItem('applications') || '[]'); } catch { apps = []; }
-    apps.push(newApp);
-    localStorage.setItem('applications', JSON.stringify(apps));
-    msg.textContent = "Заявку успішно надіслано!";
-    msg.style.color = "#00e094";
-    msg.style.display = "block";
-    this.reset();
-    option1Select.selectedIndex = 0;
-    option2Select.selectedIndex = 0;
-    setTimeout(() => { msg.style.display = "none"; }, 2500);
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({name, phone, option1, option2}),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(data => {
+        msg.textContent = "Заявку успішно надіслано!";
+        msg.style.color = "#00e094";
+        msg.style.display = "block";
+        // Очищаем форму
+        document.getElementById('main-form').reset();
+        option1Select.selectedIndex = 0;
+        option2Select.selectedIndex = 0;
+        setTimeout(() => { msg.style.display = "none"; }, 2500);
+    }).catch(() => {
+        msg.textContent = "Виникла помилка при надсиланні. Спробуйте ще раз.";
+        msg.style.color = "#e25c5c";
+        msg.style.display = "block";
+    });
 });
 </script>
-
 </body>
 </html>
