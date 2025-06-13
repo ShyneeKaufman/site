@@ -134,22 +134,6 @@
             text-align: center;
             font-weight: 700;
         }
-        .to-apps-link {
-            display: inline-block;
-            margin: 16px auto 0 auto;
-            background: #ff8b00;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 24px;
-            border-radius: 7px;
-            font-size: 1em;
-            font-weight: 700;
-            text-align: center;
-            transition: background 0.2s;
-        }
-        .to-apps-link:hover {
-            background: #cc7000;
-        }
         @media (max-width: 900px) {
             .container { padding-top: 70px; }
             .info-blocks { flex-direction: column; gap: 20px; }
@@ -183,7 +167,7 @@
     <div class="info-blocks">
         <div class="info-block">
             <h4>Категорії осіб, яким надається підтримка</h4>
-            <ul>
+            <ul id="category-list">
                 <li>Ветерани війни</li>
                 <li>Демобілізовані особи</li>
                 <li>Члени сімей загиблих(померлих) ветеранів війни</li>
@@ -194,7 +178,7 @@
         </div>
         <div class="info-block">
             <h4>Послуги, які надаються</h4>
-            <ul>
+            <ul id="services-list">
                 <li>Організацію індивідуального супроводу та консультування ветеранів війни та членів їх сімей</li>
                 <li>Консультаційну підтримку ветеранів війни та їх родин щодо отримання соціальних, освітніх, реабілітаційних та інших послуг</li>
                 <li>Підтримку в оформленні документів</li>
@@ -215,29 +199,24 @@
             <input type="text" id="name" name="name" required autocomplete="off">
         </div>
         <div>
-            <label for="email">Email <span style="color:#e25c5c">*</span></label>
-            <input type="email" id="email" name="email" required autocomplete="off">
+            <label for="phone">Телефон <span style="color:#e25c5c">*</span></label>
+            <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,15}$" placeholder="+380XXXXXXXXX">
         </div>
         <div>
-            <label for="option1">Выберите вариант 1</label>
+            <label for="option1">Категория лица</label>
             <select id="option1" name="option1" required>
-                <option value="" disabled selected>Выберите вариант</option>
-                <option value="one">Вариант 1</option>
-                <option value="two">Вариант 2</option>
+                <option value="" disabled selected>Выберите категорию</option>
             </select>
         </div>
         <div>
-            <label for="option2">Выберите вариант 2</label>
+            <label for="option2">Услуга</label>
             <select id="option2" name="option2" required>
-                <option value="" disabled selected>Выберите вариант</option>
-                <option value="a">Вариант A</option>
-                <option value="b">Вариант B</option>
+                <option value="" disabled selected>Выберите услугу</option>
             </select>
         </div>
         <button type="submit">Отправить</button>
         <div id="success-message" class="success-message" style="display:none"></div>
     </form>
-    <a class="to-apps-link" href="applications.html">Смотреть поданные заявки</a>
 </div>
 <!-- Кнопка для прокрутки к форме -->
 <button class="scroll-btn" onclick="scrollToForm()" title="К форме">&#8595;</button>
@@ -247,22 +226,48 @@ function scrollToForm() {
     document.getElementById('main-form').scrollIntoView({behavior: 'smooth'});
 }
 
+// Заполнение select-ов из текстовых блоков
+function fillSelectFromList(selectId, listId) {
+    const select = document.getElementById(selectId);
+    const list = document.getElementById(listId);
+    if (select && list) {
+        Array.from(list.querySelectorAll('li')).forEach(li => {
+            const opt = document.createElement('option');
+            opt.value = li.textContent;
+            opt.textContent = li.textContent;
+            select.appendChild(opt);
+        });
+    }
+}
+fillSelectFromList('option1', 'category-list');
+fillSelectFromList('option2', 'services-list');
+
 // Сохранение заявки в localStorage
 document.getElementById('main-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
     // Получаем значения
     const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const option1Select = document.getElementById('option1');
     const option2Select = document.getElementById('option2');
     const option1 = option1Select.options[option1Select.selectedIndex].text;
     const option2 = option2Select.options[option2Select.selectedIndex].text;
 
+    // Валидация телефона
+    const phonePattern = /^\+?\d{10,15}$/;
+    if (!phonePattern.test(phone)) {
+        const msg = document.getElementById('success-message');
+        msg.textContent = "Пожалуйста, введите корректный номер телефона!";
+        msg.style.color = "#e25c5c";
+        msg.style.display = "block";
+        return;
+    }
+
     // Формируем новую заявку
     const newApp = {
         name: name,
-        email: email,
+        phone: phone,
         option1: option1,
         option2: option2
     };
@@ -282,6 +287,7 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     // Сообщение об успехе
     const msg = document.getElementById('success-message');
     msg.textContent = "Заявка успешно отправлена!";
+    msg.style.color = "#198754";
     msg.style.display = "block";
 
     // Очищаем форму
