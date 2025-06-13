@@ -126,6 +126,30 @@
         button[type="submit"]:hover {
             background: #1c3756;
         }
+        .success-message {
+            color: #198754;
+            font-size: 1.1em;
+            margin-top: 16px;
+            margin-bottom: 0;
+            text-align: center;
+            font-weight: 700;
+        }
+        .to-apps-link {
+            display: inline-block;
+            margin: 16px auto 0 auto;
+            background: #ff8b00;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 7px;
+            font-size: 1em;
+            font-weight: 700;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        .to-apps-link:hover {
+            background: #cc7000;
+        }
         @media (max-width: 900px) {
             .container { padding-top: 70px; }
             .info-blocks { flex-direction: column; gap: 20px; }
@@ -149,7 +173,7 @@
             <path d="M-4.62402e-05 277.728L-3.8147e-05 92.576L50.313 92.576L50.313 140.206L86.5384 149.598L86.5384 221.377L50.313 232.111L50.313 277.728L-4.62402e-05 277.728Z" fill="#FF8B00"/>
             <path d="M375 92.5761L375 277.728L324.687 277.728L324.687 230.098L288.462 220.707L288.462 148.927L324.687 138.193L324.687 92.5761L375 92.5761Z" fill="#FF8B00"/>
             <path d="M230.769 259.615H142.218L114.043 231.44V140.876L142.218 111.359H230.769L260.286 140.876V231.44L230.769 259.615Z" fill="white"/>
-            <path d="M165.698 163.014L145.573 142.889V228.086H177.102L186.494 239.49L196.556 228.086H227.415V142.889L206.619 163.014V205.948H196.556V142.889L186.494 133.497L175.76 144.901V205.948H165.698V163.014Z" fill="#22446D"/>
+            <path d="M165.698 163.014L145.573 142.889V228.086H177.102L186.494 239.49L196.556 228.086H227.415V142.889L206.619 163.014V205.948H196.556V142.889L186.494 133.497L175.76 144.901V205.948H165.[...]
         </svg>
     </div>
     <div class="header-title">Мой адаптивный сайт</div>
@@ -172,7 +196,7 @@
             <h4>Послуги, які надаються</h4>
             <ul>
                 <li>Організацію індивідуального супроводу та консультування ветеранів війни та членів їх сімей</li>
-                <li>Консультаційну підтримку ветеранів війни та їх родин щодо отримання соціальних, освітніх, реабілітаційних та психологічних послуг</li>
+                <li>Консультаційну підтримку ветеранів війни та їх родин щодо отримання соціальних, освітніх, реабілітаційних та інших послуг</li>
                 <li>Підтримку в оформленні документів</li>
                 <li>Допомогу в організації отримання медичних послуг та реабілітації</li>
                 <li>Співпрацю з громадськими об'єднаннями ветеранів війни тощо</li>
@@ -185,7 +209,7 @@
         Пример минимального адаптивного сайта с фиксированной шапкой и формой.
     </p>
 
-    <form id="main-form">
+    <form id="main-form" autocomplete="off">
         <div>
             <label for="name">Имя <span style="color:#e25c5c">*</span></label>
             <input type="text" id="name" name="name" required autocomplete="off">
@@ -211,7 +235,9 @@
             </select>
         </div>
         <button type="submit">Отправить</button>
+        <div id="success-message" class="success-message" style="display:none"></div>
     </form>
+    <a class="to-apps-link" href="applications.html">Смотреть поданные заявки</a>
 </div>
 <!-- Кнопка для прокрутки к форме -->
 <button class="scroll-btn" onclick="scrollToForm()" title="К форме">&#8595;</button>
@@ -220,6 +246,54 @@
 function scrollToForm() {
     document.getElementById('main-form').scrollIntoView({behavior: 'smooth'});
 }
+
+// Сохранение заявки в localStorage
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Получаем значения
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const option1Select = document.getElementById('option1');
+    const option2Select = document.getElementById('option2');
+    const option1 = option1Select.options[option1Select.selectedIndex].text;
+    const option2 = option2Select.options[option2Select.selectedIndex].text;
+
+    // Формируем новую заявку
+    const newApp = {
+        name: name,
+        email: email,
+        option1: option1,
+        option2: option2
+    };
+
+    // Загружаем предыдущие заявки
+    let apps = [];
+    try {
+        apps = JSON.parse(localStorage.getItem('applications') || '[]');
+    } catch { apps = []; }
+
+    // Добавляем новую заявку
+    apps.push(newApp);
+
+    // Сохраняем обратно
+    localStorage.setItem('applications', JSON.stringify(apps));
+
+    // Сообщение об успехе
+    const msg = document.getElementById('success-message');
+    msg.textContent = "Заявка успешно отправлена!";
+    msg.style.display = "block";
+
+    // Очищаем форму
+    this.reset();
+    // Возвращаем плейсхолдеры у select
+    option1Select.selectedIndex = 0;
+    option2Select.selectedIndex = 0;
+
+    // Прячем сообщение через 2.5 секунды
+    setTimeout(() => { msg.style.display = "none"; }, 2500);
+});
 </script>
+
 </body>
 </html>
