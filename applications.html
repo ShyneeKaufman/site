@@ -24,35 +24,40 @@
             top: 0; left: 0; width: 100%;
             background: #FF8B00;
             color: #fff;
-            padding: 18px 24px 18px 80px;
+            padding: 18px 24px 18px 90px;
             z-index: 1000;
             box-shadow: 0 2px 8px rgba(0,0,0,0.12);
             display: flex;
             align-items: center;
-            min-height: 72px;
+            min-height: 82px;
+            height: auto;
         }
         .header-logo {
             position: absolute;
             left: 18px;
-            top: 14px;
-            width: 44px;
-            height: 44px;
+            top: 12px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
+        }
+        .header-logo svg {
+            width: 56px;
+            height: 56px;
         }
         .header-title {
             font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
             font-weight: 700;
-            font-size: 1.25em;
+            font-size: 1.22em;
             letter-spacing: 0.01em;
-            line-height: 1.25;
+            line-height: 1.18;
             color: #fff;
             margin-left: 0;
             text-shadow: 0 2px 12px rgba(34,68,109,0.10);
             max-width: 950px;
         }
         .header-title .org {
-            font-size: 1.15em;
+            font-size: 1.13em;
             font-weight: 700;
             display: block;
         }
@@ -65,7 +70,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 110px 16px 20px 16px;
+            padding: 118px 16px 20px 16px;
         }
         .platform-block {
             background: rgba(34,68,109,0.85);
@@ -128,29 +133,32 @@
             background: #cc7000;
         }
         @media (max-width: 900px) {
-            .container { padding-top: 90px; }
-            .header-logo { width: 36px; height: 36px; }
-            header { padding-left: 54px; }
+            .container { padding-top: 110px; }
+            .header-logo { width: 48px; height: 48px; }
+            .header-logo svg { width: 48px; height: 48px; }
+            header { padding-left: 58px; min-height: 70px;}
         }
         @media (max-width: 600px) {
-            .container { padding: 65px 6px 10px 6px; }
+            .container { padding: 100px 4px 10px 4px; }
             th, td { padding: 10px 4px; font-size: 0.92em; }
-            .header-title { font-size: 0.99em; }
-            .platform-block { padding: 17px 7px 22px 7px; }
+            .header-title { font-size: 0.93em; }
+            header { padding: 10px 8px 10px 68px; min-height: 70px;}
+            .header-logo, .header-logo svg { width: 38px; height: 38px; top: 8px;}
+            .platform-block { padding: 13px 5px 18px 5px; }
         }
     </style>
 </head>
 <body>
 <header>
     <div class="header-logo">
-        <!-- SVG логотип -->
-        <svg width="44" height="44" viewBox="0 0 375 371" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="185" cy="185" r="185" fill="#fff" fill-opacity="0.08"/>
-            <path d="M280.411 370.975H95.2593V320.662H142.889L152.281 284.437H224.061L234.794 320.662H280.411V370.975Z" fill="#FF8B00"/>
-            <path d="M95.2593 -5.2478e-05L280.411 -6.86646e-05L280.411 50.313L232.782 50.313L223.39 86.5383L151.61 86.5383L140.876 50.313L95.2593 50.313L95.2593 -5.2478e-05Z" fill="#FF8B00"/>
-            <path d="M-4.62402e-05 277.728L-3.8147e-05 92.576L50.313 92.576L50.313 140.206L86.5384 149.598L86.5384 221.377L50.313 232.111L50.313 277.728L-4.62402e-05 277.728Z" fill="#FF8B00"/>
-            <path d="M375 92.5761L375 277.728L324.687 277.728L324.687 230.098L288.462 220.707L288.462 148.927L324.687 138.193L324.687 92.5761L375 92.5761Z" fill="#FF8B00"/>
-            <path d="M230.769 259.615H142.218L114.043 231.44V140.876L142.218 111.359H230.769L260.286 140.876V231.44L230.769 259.615Z" fill="white"/>
+        <!-- Новый SVG логотип -->
+        <svg width="56" height="53" viewBox="0 0 427 403" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M280 403H95.0001V348.93H142.591L151.975 310H223.696L234.42 348.93H280V403Z" fill="#22446D"/>
+            <path d="M95.2593 32L280.411 32L280.411 82.313L232.782 82.313L223.39 118.538L151.61 118.538L140.877 82.3131L95.2594 82.3131L95.2593 32Z" fill="#22446D"/>
+            <path d="M4.53125e-05 309.728L5.34058e-05 124.576L50.3131 124.576L50.3131 172.206L86.5384 181.598L86.5384 253.378L50.3131 264.111L50.3131 309.728L4.53125e-05 309.728Z" fill="#22446D"/>
+            <path d="M375 124L375 310L324.419 310L324.419 262.152L288 252.717L288 180.609L324.419 169.826L324.419 124L375 124Z" fill="#22446D"/>
+            <path d="M230.769 291.615H142.218L114.043 263.44V172.877L142.218 143.36H230.769L260.286 172.877V263.44L230.769 291.615Z" fill="white"/>
+            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.698V195.014Z" fill="#22446D"/>
         </svg>
     </div>
     <div class="header-title">
@@ -181,13 +189,10 @@
     </div>
 </div>
 <script>
-// Отримання заявок з localStorage та відображення їх у таблиці
 function loadApplications() {
     const tableBody = document.getElementById('table-body');
     let apps = [];
-    try {
-        apps = JSON.parse(localStorage.getItem('applications') || '[]');
-    } catch { apps = []; }
+    try { apps = JSON.parse(localStorage.getItem('applications') || '[]'); } catch { apps = []; }
     tableBody.innerHTML = '';
     if (apps.length === 0) {
         tableBody.innerHTML = `<tr class="empty"><td colspan="5">Немає поданих заявок</td></tr>`;
@@ -205,27 +210,19 @@ function loadApplications() {
         tableBody.appendChild(row);
     });
 }
-
-// Функція видалення однієї заявки
 function deleteApplication(idx) {
     let apps = [];
-    try {
-        apps = JSON.parse(localStorage.getItem('applications') || '[]');
-    } catch { apps = []; }
+    try { apps = JSON.parse(localStorage.getItem('applications') || '[]'); } catch { apps = []; }
     apps.splice(idx, 1);
     localStorage.setItem('applications', JSON.stringify(apps));
     loadApplications();
 }
-
-// Видалити всі заявки
 document.getElementById('clear-all-btn').onclick = function() {
     if (confirm('Ви дійсно бажаєте видалити всі заявки?')) {
         localStorage.removeItem('applications');
         loadApplications();
     }
 };
-
-// Функція екранування тексту
 function escapeHTML(str) {
     if (!str) return '';
     return String(str).replace(/[<>&"']/g, function(m) {
@@ -234,8 +231,6 @@ function escapeHTML(str) {
         })[m];
     });
 }
-
-// Завантаження при відкритті сторінки
 window.addEventListener('DOMContentLoaded', loadApplications);
 </script>
 </body>
