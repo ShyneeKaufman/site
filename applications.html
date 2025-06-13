@@ -151,14 +151,13 @@
 <body>
 <header>
     <div class="header-logo">
-        <!-- Новый SVG логотип -->
         <svg width="56" height="53" viewBox="0 0 427 403" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M280 403H95.0001V348.93H142.591L151.975 310H223.696L234.42 348.93H280V403Z" fill="#22446D"/>
             <path d="M95.2593 32L280.411 32L280.411 82.313L232.782 82.313L223.39 118.538L151.61 118.538L140.877 82.3131L95.2594 82.3131L95.2593 32Z" fill="#22446D"/>
             <path d="M4.53125e-05 309.728L5.34058e-05 124.576L50.3131 124.576L50.3131 172.206L86.5384 181.598L86.5384 253.378L50.3131 264.111L50.3131 309.728L4.53125e-05 309.728Z" fill="#22446D"/>
             <path d="M375 124L375 310L324.419 310L324.419 262.152L288 252.717L288 180.609L324.419 169.826L324.419 124L375 124Z" fill="#22446D"/>
             <path d="M230.769 291.615H142.218L114.043 263.44V172.877L142.218 143.36H230.769L260.286 172.877V263.44L230.769 291.615Z" fill="white"/>
-            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.698V195.014Z" fill="#22446D"/>
+            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.698В195.014З" fill="#22446D"/>
         </svg>
     </div>
     <div class="header-title">
@@ -185,16 +184,40 @@
                 </tr>
             </tbody>
         </table>
-        <button class="delete-btn" id="clear-all-btn" style="margin-top:12px;">Видалити всі заявки</button>
+        <audio id="notify-sound" src="ding-126626.mp3" preload="auto"></audio>
     </div>
 </div>
 <script>
-function loadApplications() {
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlRqOeu9UXsUBGeNSqedUz1cWFDomhUsvgRUqOomziNtImrHf5arRByNawWwPsWcOddA/exec";
+let lastCount = 0;
+let firstLoad = true;
+
+function escapeHTML(str) {
+    if (!str) return '';
+    return String(str).replace(/[<>&"']/g, function(m) {
+        return ({
+            '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
+        })[m];
+    });
+}
+
+function deleteApplication(rowIndex) {
+    if (!confirm('Видалити цю заявку?')) return;
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({action: "deleteOne", rowIndex: rowIndex}),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(r => r.json())
+    .then(res => {
+        loadApplications(false); // обновить список без звука
+    });
+}
+
+function renderApplications(apps) {
     const tableBody = document.getElementById('table-body');
-    let apps = [];
-    try { apps = JSON.parse(localStorage.getItem('applications') || '[]'); } catch { apps = []; }
     tableBody.innerHTML = '';
-    if (apps.length === 0) {
+    if (!apps || apps.length === 0) {
         tableBody.innerHTML = `<tr class="empty"><td colspan="5">Немає поданих заявок</td></tr>`;
         return;
     }
@@ -205,33 +228,34 @@ function loadApplications() {
             <td>${escapeHTML(app.phone || "")}</td>
             <td>${escapeHTML(app.option1)}</td>
             <td>${escapeHTML(app.option2)}</td>
-            <td><button class="delete-btn" onclick="deleteApplication(${idx})">Видалити</button></td>
+            <td><button class="delete-btn" onclick="deleteApplication(${app.rowIndex})">Видалити</button></td>
         `;
         tableBody.appendChild(row);
     });
 }
-function deleteApplication(idx) {
-    let apps = [];
-    try { apps = JSON.parse(localStorage.getItem('applications') || '[]'); } catch { apps = []; }
-    apps.splice(idx, 1);
-    localStorage.setItem('applications', JSON.stringify(apps));
-    loadApplications();
+
+// Загрузка заявок из Google Таблицы
+function loadApplications(playSoundIfNew = false) {
+    fetch(GOOGLE_SCRIPT_URL)
+        .then(r => r.json())
+        .then(apps => {
+            renderApplications(apps);
+            if (typeof apps.length === "number") {
+                if (!firstLoad && playSoundIfNew && apps.length > lastCount) {
+                    var audio = document.getElementById('notify-sound');
+                    if (audio) audio.play();
+                }
+                lastCount = apps.length;
+            }
+            firstLoad = false;
+        });
 }
-document.getElementById('clear-all-btn').onclick = function() {
-    if (confirm('Ви дійсно бажаєте видалити всі заявки?')) {
-        localStorage.removeItem('applications');
-        loadApplications();
-    }
-};
-function escapeHTML(str) {
-    if (!str) return '';
-    return String(str).replace(/[<>&"']/g, function(m) {
-        return ({
-            '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#39;'
-        })[m];
-    });
-}
-window.addEventListener('DOMContentLoaded', loadApplications);
+
+// Проверка новых заявок каждые 5 секунд
+setInterval(() => loadApplications(true), 5000);
+
+// Первая загрузка
+window.addEventListener('DOMContentLoaded', () => loadApplications(false));
 </script>
 </body>
 </html>
