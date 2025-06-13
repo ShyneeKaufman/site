@@ -100,3 +100,112 @@
             text-align: left;
         }
         th {
+            background: #FF8B00;
+            color: #fff;
+            font-size: 1.05em;
+        }
+        tr:nth-child(even) {
+            background: #fff4e6;
+        }
+        tr:nth-child(odd) {
+            background: #ffe7c2;
+        }
+        button.delete-btn {
+            background: #e25c5c;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 7px 16px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1em;
+            transition: background 0.18s;
+        }
+        button.delete-btn:hover { background: #af2b2b; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-logo">
+        <svg width="56" height="53" viewBox="0 0 427 403" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M280 403H95.0001V348.93H142.591L151.975 310H223.696L234.42 348.93H280V403Z" fill="#22446D"/>
+            <path d="M95.2593 32L280.411 32L280.411 82.313L232.782 82.313L223.39 118.538L151.61 118.538L140.877 82.3131L95.2594 82.3131L95.2593 32Z" fill="#22446D"/>
+            <path d="M4.53125e-05 309.728L5.34058e-05 124.576L50.3131 124.576L50.3131 172.206L86.5384 181.598L86.5384 253.378L50.3131 264.111L50.3131 309.728L4.53125e-05 309.728Z" fill="#22446D"/>
+            <path d="M375 124L375 310L324.419 310L324.419 262.152L288 252.717L288 180.609L324.419 169.826L324.419 124L375 124Z" fill="#22446D"/>
+            <path d="M230.769 291.615H142.218L114.043 263.44V172.877L142.218 143.36H230.769L260.286 172.877V263.44L230.769 291.615Z" fill="white"/>
+            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.698V195.014Z" fill="#22446D"/>
+        </svg>
+    </div>
+    <div class="header-title">
+        <span class="org">КЗ “Центр Надання Соціальних Послуг” Таращанської Міської Ради</span>
+        <span class="dep">Відділення “Ветеранський простір”</span>
+    </div>
+</header>
+<div class="container">
+    <h2>Подані заявки</h2>
+    <div id="applications-table"></div>
+</div>
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbxttK06IR-2zGQfx2d_uig3wzj6rwQOhIdxKGWSiIZWG_nQu9fA4ZZbE01n0vuI7jx20Q/exec';
+
+function loadApplications() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => renderTable(data));
+}
+
+function renderTable(applications) {
+  const container = document.getElementById('applications-table');
+  if (!applications.length) {
+    container.innerHTML = "<p>Заявок поки немає.</p>";
+    return;
+  }
+  let html = `<table>
+    <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Ім'я</th>
+        <th>Телефон</th>
+        <th>Категорія</th>
+        <th>Послуга</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>`;
+  for (const app of applications) {
+    html += `<tr>
+      <td>${app.date}</td>
+      <td>${app.name}</td>
+      <td>${app.phone}</td>
+      <td>${app.option1}</td>
+      <td>${app.option2}</td>
+      <td><button class="delete-btn" onclick="deleteApplication(${app.row})">Видалити</button></td>
+    </tr>`;
+  }
+  html += `</tbody></table>`;
+  container.innerHTML = html;
+}
+
+function deleteApplication(row) {
+  if (!confirm('Видалити цю заявку?')) return;
+  const formData = new FormData();
+  formData.append('action', 'delete');
+  formData.append('row', row);
+  fetch(API_URL, {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.result === 'deleted') {
+      loadApplications();
+    } else {
+      alert('Сталася помилка при видаленні');
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', loadApplications);
+</script>
+</body>
+</html>
