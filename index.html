@@ -164,6 +164,13 @@
             gap: 18px;
             margin-bottom: 36px;
         }
+        /* Новый стиль для "стеклянной" зелёной заливки */
+        .form-success {
+            background: rgba(0, 224, 148, 0.15) !important;
+            box-shadow: 0 4px 24px rgba(0,224,148,0.18) !important;
+            border: 2px solid #00e094;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
         label {
             font-size: 16px;
             margin-bottom: 6px;
@@ -295,6 +302,11 @@
         </div>
     </div>
 
+    <!-- Новый заголовок перед формой -->
+    <h2 style="color:#FF8B00; text-align:center; margin-bottom:18px;">
+      Якщо вас щось цікавить, заповніть форму та наші спеціалісти з вами зв'яжуться
+    </h2>
+
     <!-- 3. Форма подачі -->
     <form id="main-form" autocomplete="off">
         <div>
@@ -377,6 +389,7 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     const phonePattern = /^\+?\d{10,15}$/;
     const msg = document.getElementById('success-message');
     const audio = document.getElementById('success-audio');
+    const form = document.getElementById('main-form');
     if (!phonePattern.test(phone)) {
         msg.textContent = "Будь ласка, введіть коректний номер телефону!";
         msg.style.color = "#e25c5c";
@@ -396,15 +409,19 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.result === "success") {
-            msg.textContent = "Заявка успішно відправлена!";
+            msg.textContent = "Дякую за зворотній зв'язок, наші спеціалісти з вами зв'яжуться";
             msg.style.color = "#00e094";
             msg.style.display = "block";
             audio.currentTime = 0;
             audio.play();
-            document.getElementById('main-form').reset();
+            form.reset();
             option1Select.selectedIndex = 0;
             option2Select.selectedIndex = 0;
-            setTimeout(() => { msg.style.display = "none"; }, 2500);
+            form.classList.add('form-success');
+            setTimeout(() => {
+                msg.style.display = "none";
+                form.classList.remove('form-success');
+            }, 2500);
         } else {
             msg.textContent = "Сталася помилка при відправці. Спробуйте ще раз.";
             msg.style.color = "#e25c5c";
