@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додати новину — КЗ “Центр Надання Соціальних Послуг” Таращанської Міської Ради</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'TT Firs Neue';
+            src: local('TT Firs Neue'), url('https://fonts.cdnfonts.com/s/17508/TTFirsNeue-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', 'TT Firs Neue', Arial, sans-serif;
+            font-weight: 700;
+            background: #223b53;
+        }
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: #FF8B00;
+            color: #fff;
+            padding: 18px 24px;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            min-height: 82px;
+            height: auto;
+        }
+        .header-logo { width: 56px; height: 56px; display: flex; align-items: center; margin-right: 20px; }
+        .header-logo svg { width: 56px; height: 56px; }
+        .header-title {
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.22em;
+            letter-spacing: 0.01em;
+            line-height: 1.18;
+            color: #fff;
+            margin-left: 0;
+            text-shadow: 0 2px 12px rgba(34,68,109,0.10);
+            max-width: 950px;
+        }
+        .header-title .org { font-size: 1.13em; font-weight: 700; display: block; }
+        .header-title .dep { font-size: 1em; font-weight: 400; opacity: 0.95; display: block; }
+        nav {
+            margin-left: auto;
+            display: flex;
+            gap: 18px;
+            font-size: 1em;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: background 0.15s;
+        }
+        nav a:hover, nav a.active { background: #223b53; color: #FF8B00; }
+        .container {
+            max-width: 830px;
+            margin: 0 auto;
+            padding: 128px 16px 24px 16px;
+        }
+        form {
+            background: rgba(34,68,109,0.85);
+            color: #fff;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(34,68,109,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 36px;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #FF8B00;
+        }
+        input {
+            padding: 9px 12px;
+            border: 1.5px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+            width: 100%;
+            background: #f7f7f8;
+            color: #223b53;
+        }
+        #editor {
+            background: #fff;
+            color: #223b53;
+            min-height: 160px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        .ql-toolbar.ql-snow {
+            border-radius: 6px 6px 0 0;
+        }
+        .ql-container.ql-snow {
+            border-radius: 0 0 6px 6px;
+        }
+        input:required:invalid {
+            border-color: #e25c5c;
+        }
+        button[type="submit"] {
+            background: #FF8B00;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            transition: background 0.2s;
+            margin-top: 8px;
+            letter-spacing: 0.03em;
+        }
+        button[type="submit"]:hover { background: #cc7000; }
+        .success-message {
+            color: #00e094;
+            font-size: 1.1em;
+            margin-top: 16px;
+            margin-bottom: 0;
+            text-align: center;
+            font-weight: 700;
+        }
+        @media (max-width: 900px) {
+            .container { padding-top: 120px; }
+            .header-logo { width: 48px; height: 48px; }
+            .header-logo svg { width: 48px; height: 48px; }
+            header { padding: 10px 8px; min-height: 70px;}
+        }
+        @media (max-width: 600px) {
+            .container { padding: 155px 4px 10px 4px; }
+            form { padding: 8px; }
+            .header-title { font-size: 0.93em; }
+            header { padding: 10px 8px; min-height: 70px;}
+            .header-logo, .header-logo svg { width: 38px; height: 38px;}
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-logo">
+        <!-- SVG логотип как в index.html -->
+        <svg width="56" height="53" viewBox="0 0 427 403" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M280 403H95.0001V348.93H142.591L151.975 310H223.696L234.42 348.93H280V403Z" fill="#22446D"/>
+            <path d="M95.2593 32L280.411 32L280.411 82.313L232.782 82.313L223.39 118.538L151.61 118.538L140.877 82.3131L95.2594 82.3131L95.2593 32Z" fill="#22446D"/>
+            <path d="M4.53125e-05 309.728L5.34058e-05 124.576L50.3131 124.576L50.3131 172.206L86.5384 181.598L86.5384 253.378L50.3131 264.111L50.3131 309.728L4.53125e-05 309.728Z" fill="#22446D"/>
+            <path d="M375 124L375 310L324.419 310L324.419 262.152L288 252.717L288 180.609L324.419 169.826L324.419 124L375 124Z" fill="#22446D"/>
+            <path d="M230.769 291.615H142.218L114.043 263.44V172.877L142.218 143.36H230.769L260.286 172.877V263.44L230.769 291.615Z" fill="white"/>
+            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.698V195.014Z" fill="#22446D"/>
+        </svg>
+    </div>
+    <div class="header-title">
+        <span class="org">КЗ “Центр Надання Соціальних Послуг” Таращанської Міської Ради</span>
+        <span class="dep">Відділення “Ветеранський простір”</span>
+    </div>
+    <nav>
+        <a href="index.html">Головна</a>
+        <a href="blog.html">Новини</a>
+        <a href="editor.html" class="active">Додати новину</a>
+    </nav>
+</header>
+<div class="container">
+    <h1 style="color:#FF8B00; text-align:center; margin-bottom:16px;">Додати новину</h1>
+    <form id="news-form">
+        <div>
+            <label for="news-title">Заголовок новини <span style="color:#e25c5c">*</span></label>
+            <input type="text" id="news-title" name="title" required>
+        </div>
+        <div>
+            <label for="editor">Текст новини <span style="color:#e25c5c">*</span></label>
+            <div id="editor"></div>
+            <input type="hidden" id="news-content" name="content">
+        </div>
+        <button type="submit">Опублікувати</button>
+        <div class="success-message" id="success-message" style="display:none;"></div>
+    </form>
+    <div style="color:#fff; opacity:0.85; margin-top:8px; text-align:center;">
+        Новини зберігаються у Google Таблиці через скрипт. Для підключення динамічного виводу використовуйте Google Apps Script.
+    </div>
+</div>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+  // Настройка Quill
+  var quill = new Quill('#editor', {
+    theme: 'snow',
+    placeholder: 'Введіть текст новини...',
+    modules: {
+      toolbar: [
+        ['bold', 'italic', 'underline'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }, { 'align': [] }],
+        [{ 'header': [1, 2, 3, false] }],
+        ['clean']
+      ]
+    }
+  });
+
+  // Сохранение HTML в скрытое поле перед отправкой
+  document.getElementById('news-form').onsubmit = function(e) {
+    e.preventDefault();
+    document.getElementById('news-content').value = quill.root.innerHTML;
+    const title = document.getElementById('news-title').value.trim();
+    const content = document.getElementById('news-content').value.trim();
+    if (!title || !content || content === '<p><br></p>') {
+      showMsg('Введіть заголовок і текст новини!', false);
+      return;
+    }
+    // Отправка на Google Apps Script
+    fetch('https://script.google.com/macros/s/AKfycbzmEexBj5YOJj5sXieMcnyP6ix7ZuJ-nNI91EUEzIxdnmrNT5koLFkVoI8y8TmYciXw/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `title=${encodeURIComponent(title)}&content=${encodeURIComponent(content)}`
+    });
+    showMsg('Новину надіслано! Вона з\'явиться після модерації/оновлення.', true);
+    this.reset();
+    quill.setContents([]);
+  };
+
+  function showMsg(msg, ok) {
+    const box = document.getElementById('success-message');
+    box.textContent = msg;
+    box.style.display = 'block';
+    box.style.color = ok ? '#00e094' : '#e25c5c';
+    setTimeout(() => { box.style.display = 'none'; }, 3000);
+  }
+</script>
+</body>
+</html>
