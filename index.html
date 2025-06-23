@@ -131,7 +131,7 @@
             padding: 10px 18px;
             font-size: 1.05em;
             margin-right: 7px;
-            font-family: 'Montserrat', 'TT Firs Neue', Arial, sans-serif; /* исправлено */
+            font-family: 'Montserrat', 'TT Firs Neue', Arial, sans-serif;
         }
         .scroll-btn {
             position: fixed;
@@ -222,6 +222,74 @@
             font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
             font-size: 1.13em;
         }
+        /* --- NEWS BLOCK --- */
+        .news-block {
+            background: rgba(34,68,109,0.85);
+            border-radius: 18px;
+            padding: 24px 28px 24px 28px;
+            color: #fff;
+            box-shadow: 0 2px 24px rgba(34,68,109,0.11);
+            margin-bottom: 36px;
+        }
+        .news-block h4 {
+            color: #FF8B00;
+            margin-bottom: 16px;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-size: 1.18em;
+        }
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .news-item {
+            background: #fff2e0;
+            color: #223b53;
+            border-radius: 12px;
+            padding: 18px 16px 14px 16px;
+            box-shadow: 0 1px 7px rgba(34,68,109,0.10);
+            position: relative;
+        }
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 7px;
+        }
+        .news-icon {
+            font-size: 1.5em;
+        }
+        .news-date {
+            font-size: 1em;
+            color: #FF8B00;
+            opacity: 0.8;
+        }
+        .news-title {
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.13em;
+            margin-bottom: 6px;
+            color: #223b53;
+        }
+        .news-desc {
+            font-size: 1.03em;
+            margin-bottom: 12px;
+        }
+        .news-more {
+            background: #FF8B00;
+            color: #fff;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 7px;
+            font-size: 1em;
+            cursor: pointer;
+            font-family: 'TT Firs Neue', 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        .news-more:hover {
+            background: #cc7000;
+        }
         @media (max-width: 900px) {
             .container { padding-top: 120px; }
             .info-blocks { flex-direction: column; gap: 20px; }
@@ -231,11 +299,12 @@
         }
         @media (max-width: 600px) {
             .container { padding: 155px 4px 10px 4px; }
-            .platform-block, .specialists-block, .map-block { padding: 13px 5px 18px 5px; }
+            .platform-block, .specialists-block, .map-block, .news-block { padding: 13px 5px 18px 5px; }
             form { padding: 8px; }
             .header-title { font-size: 0.93em; }
             header { padding: 10px 8px; min-height: 70px;}
             .header-logo, .header-logo svg { width: 38px; height: 38px;}
+            .news-item { padding: 11px 6px 10px 6px; }
         }
     </style>
 </head>
@@ -243,13 +312,14 @@
 
 <header>
     <div class="header-logo">
+        <!-- SVG-логотип (оставьте как есть или замените своим) -->
         <svg width="56" height="53" viewBox="0 0 427 403" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M280 403H95.0001V348.93H142.591L151.975 310H223.696L234.42 348.93H280V403Z" fill="#22446D"/>
             <path d="M95.2593 32L280.411 32L280.411 82.313L232.782 82.313L223.39 118.538L151.61 118.538L140.877 82.3131L95.2594 82.3131L95.2593 32Z" fill="#22446D"/>
             <path d="M4.53125e-05 309.728L5.34058e-05 124.576L50.3131 124.576L50.3131 172.206L86.5384 181.598L86.5384 253.378L50.3131 264.111L50.3131 309.728L4.53125e-05 309.728Z" fill="#22446D"/>
             <path d="M375 124L375 310L324.419 310L324.419 262.152L288 252.717L288 180.609L324.419 169.826L324.419 124L375 124Z" fill="#22446D"/>
             <path d="M230.769 291.615H142.218L114.043 263.44V172.877L142.218 143.36H230.769L260.286 172.877V263.44L230.769 291.615Z" fill="white"/>
-            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.698V195.014Z" fill="#22446D"/>
+            <path d="M165.698 195.014L145.573 174.889V260.086H177.102L186.494 271.49L196.556 260.086H227.415V174.889L206.619 195.014V237.948H196.556V174.889L186.494 165.497L175.76 176.901V237.948H165.[...]
         </svg>
     </div>
     <div class="header-title">
@@ -299,12 +369,56 @@
         </div>
     </div>
 
+    <!-- 3. Блок новин -->
+    <div class="news-block">
+        <h4>Останні новини</h4>
+        <div class="news-list">
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-icon">📰</span>
+                    <span class="news-date">23.06.2025</span>
+                </div>
+                <div class="news-title">Запущено новий онлайн-сервіс для ветеранів</div>
+                <div class="news-desc">
+                    Відтепер ви можете подати заявку на консультацію або допомогу через наш сайт!
+                </div>
+                <button class="news-more" onclick="alert('Детальніше про цю новину')">Детальніше</button>
+            </div>
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-icon">✨</span>
+                    <span class="news-date">20.06.2025</span>
+                </div>
+                <div class="news-title">Розпочато співпрацю з новими медичними закладами</div>
+                <div class="news-desc">
+                    Тепер наші відвідувачі можуть отримати консультації у нових партнерських клініках.
+                </div>
+                <button class="news-more" onclick="alert('Детальніше про цю новину')">Детальніше</button>
+            </div>
+
+            <div class="news-item">
+                <div class="news-header">
+                    <span class="news-icon">🎉</span>
+                    <span class="news-date">15.06.2025</span>
+                </div>
+                <div class="news-title">Відбулося святкове відкриття “Ветеранського простору”</div>
+                <div class="news-desc">
+                    Дякуємо всім, хто долучився! Чекаємо на вас у нашому центрі.
+                </div>
+                <button class="news-more" onclick="alert('Детальніше про цю новину')">Детальніше</button>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Новый заголовок перед формой -->
     <h2 style="color:#FF8B00; text-align:center; margin-bottom:18px;">
       Якщо вас щось цікавить, заповніть форму та наші спеціалісти з вами зв'яжуться
     </h2>
 
-    <!-- 3. Форма подачі -->
+    <!-- 4. Форма подачі -->
     <form id="main-form" autocomplete="off">
         <div>
             <label for="name">Ім'я <span style="color:#e25c5c">*</span></label>
@@ -330,7 +444,7 @@
         <div id="success-message" class="success-message" style="display:none"></div>
     </form>
 
-    <!-- 4. Google карта + адрес -->
+    <!-- 5. Google карта + адрес -->
     <div class="map-block">
         <h4>Ми на карті</h4>
         <div style="width:100%; max-width: 100%; height: 320px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 8px rgba(34,68,109,0.11);">
